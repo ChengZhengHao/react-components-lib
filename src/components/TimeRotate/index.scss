@@ -1,0 +1,77 @@
+@mixin allCenter($top, $left) {
+    position: absolute;
+    top: $top;
+    left: $left;
+    transform: translate(-$left, -$top);
+}
+
+@mixin size($width, $height) {
+    width: $width;
+    height: $height;
+}
+
+@mixin vetically() {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+$default-point-height: 10px;
+$time-axis-height: 3px;
+$active-bg-color: #31a5eb;
+
+.date-time-rotate-wrapper {
+  background-image: linear-gradient(to bottom, rgba(0, 0, 0, 0), rgba(0, 0, 0, 0.55));
+  @include size(100%, 100%);
+  display: flex;
+  .play-pause-box {
+    @include size(11.53%, 100%);
+    position: relative;
+    .play,
+    .pause {
+      @include allCenter(50%, 50%);
+      @include size(16px, 16px);
+      background-size: contain;
+      cursor: pointer;
+    }
+    .play {
+      background: url(../../assets/play.svg);
+    }
+    .pause {
+      background: url(../../assets/pause.svg);
+    }
+  }
+  .time-text {
+    @include size(14.61%, 100%);
+    position: relative;
+    span {
+      @include vetically;
+    }
+  }
+  .time-axis {
+    @include size(73.86%, $time-axis-height);
+    background-color: #fff;
+    border-radius: 1.5px;
+    box-shadow: 0 1px $time-axis-height 0 rgba(0, 0, 0, 0.5);
+    @include vetically;
+    right: 2%;
+    display: flex;
+    justify-content: space-around;
+    .point {
+      @include size($default-point-height, $default-point-height);
+      background-color: #fff;
+      border-radius: 50%;
+      margin-top: - ($default-point-height / 2) - 2;
+      background-clip: padding-box;
+      border: $time-axis-height solid hsla(0, 0%, 90%, 0.5);
+      cursor: pointer;
+    }
+    .active {
+      @include size($default-point-height * 1.5, $default-point-height * 1.5);
+      box-shadow: 0 2px 2 * $time-axis-height 0 rgba(0, 0, 0, 0.5);
+      background-color: $active-bg-color;
+      border: solid 2px #fff;
+      margin-top: -(2 * $time-axis-height) - 2;
+    }
+  }
+}
